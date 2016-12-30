@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StateUI demo</string>
+    <string name="simple_example_button_label">Simple Example</string>
+    <string name="custom_progress_example_button_label">Custom progress example</string>
+</resources>
