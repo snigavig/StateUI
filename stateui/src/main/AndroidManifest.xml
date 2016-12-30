@@ -3,7 +3,6 @@
     package="com.goodcodeforfun.stateui">
 
     <application
-        android:name="com.goodcodeforfun.stateui.StateUIApplication"
         android:allowBackup="true"
         android:label="@string/app_name">
         <activity android:name=".StateUILifecycleActivity" />

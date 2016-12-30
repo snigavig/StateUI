@@ -1,6 +1,7 @@
 package com.goodcodeforfun.stateui;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
@@ -9,6 +10,7 @@ import java.lang.ref.WeakReference;
  */
 
 public class StateUIApplication extends Application {
+    private static final String TAG = StateUIApplication.class.getSimpleName();
 
     private static boolean cleared = false;
     private static StateUIApplication mInstance;
@@ -39,6 +41,7 @@ public class StateUIApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "StatUI Application started");
         init(this);
     }
 
