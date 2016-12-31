@@ -95,11 +95,11 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
                 title = jsonObj.getString(TITLE);
                 titles.add(title);
             }
-            StateUIApplication.getContext().onSuccess();
+            StateUIApplication.onSuccess();
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
-            StateUIApplication.getContext().onError();
+            StateUIApplication.onError();
         }
         return titles;
     }

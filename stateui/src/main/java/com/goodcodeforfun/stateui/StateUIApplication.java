@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
 public class StateUIApplication extends Application {
     private static final String TAG = StateUIApplication.class.getSimpleName();
 
-    private static boolean cleared = false;
+    private static boolean initialised = false;
     private static StateUIApplication mInstance;
     private WeakReference<StateUIActivity> mActivityWeakReference;
 
@@ -26,16 +26,16 @@ public class StateUIApplication extends Application {
 
     public static void setContext(StateUIActivity activity) {
         mInstance.mActivityWeakReference = new WeakReference<>(activity);
-        cleared = false;
+        initialised = true;
     }
 
-    public static boolean isCleared() {
-        return cleared;
+    public static boolean isInitialised() {
+        return initialised;
     }
 
     public static void clearContext() {
         getInstance().mActivityWeakReference.clear();
-        cleared = true;
+        initialised = false;
     }
 
     @Override
@@ -47,5 +47,17 @@ public class StateUIApplication extends Application {
 
     private void init(Application application) {
         mInstance = (StateUIApplication) application;
+    }
+
+    public static void onError() {
+        if(isInitialised()) {
+            getContext().onError();
+        }
+    }
+
+    public static void onSuccess() {
+        if (isInitialised()) {
+            getContext().onSuccess();
+        }
     }
 }

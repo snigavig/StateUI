@@ -28,7 +28,7 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
             super.handleMessage(message);
         }
     };
-    private ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog = null;
 
     protected static void showSimpleToast(String messageText) {
         showSimpleToast(messageText, true);
@@ -51,8 +51,9 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
 
     @Override
     protected void onResume() {
-        if (StateUIApplication.isCleared())
+        if (!StateUIApplication.isInitialised()) {
             StateUIApplication.setContext(this);
+        }
         super.onResume();
     }
 
@@ -111,7 +112,7 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
     }
 
     @Override
-    public void onSuccess() {
+    protected void onSuccess() {
         super.onSuccess();
         runOnUiThread(new Runnable() {
             public void run() {
@@ -122,7 +123,7 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
     }
 
     @Override
-    public void onError() {
+    protected void onError() {
         super.onError();
         runOnUiThread(new Runnable() {
             public void run() {
@@ -145,8 +146,10 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
 
     //@CallSuper
     protected void onStopProgressUI() {
-        mProgressDialog.dismiss();
-        mProgressDialog = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 
     protected abstract void onSuccessUI();
