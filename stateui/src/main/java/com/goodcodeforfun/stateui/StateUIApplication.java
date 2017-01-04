@@ -16,7 +16,7 @@ public class StateUIApplication extends Application {
     private static StateUIApplication mInstance;
     private WeakReference<StateUIActivity> mActivityWeakReference;
 
-    public static StateUIApplication getInstance() {
+    private static StateUIApplication getInstance() {
         return mInstance;
     }
 
@@ -38,17 +38,6 @@ public class StateUIApplication extends Application {
         initialised = false;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d(TAG, "StatUI Application started");
-        init(this);
-    }
-
-    private void init(Application application) {
-        mInstance = (StateUIApplication) application;
-    }
-
     public static void onError() {
         if(isInitialised()) {
             getContext().onError();
@@ -59,5 +48,16 @@ public class StateUIApplication extends Application {
         if (isInitialised()) {
             getContext().onSuccess();
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "StatUI Application started");
+        init(this);
+    }
+
+    private void init(Application application) {
+        mInstance = (StateUIApplication) application;
     }
 }

@@ -24,6 +24,8 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
                                     : Toast.LENGTH_SHORT)
                             .show();
                     break;
+                default:
+                    break;
             }
             super.handleMessage(message);
         }

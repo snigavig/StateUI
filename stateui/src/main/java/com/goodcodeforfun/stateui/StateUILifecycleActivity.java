@@ -1,7 +1,6 @@
 package com.goodcodeforfun.stateui;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
 
 public class StateUILifecycleActivity extends AppCompatActivity {
@@ -14,32 +13,26 @@ public class StateUILifecycleActivity extends AppCompatActivity {
         onIdle();
     }
 
-    @CallSuper
     void onIdle() {
         changeState(UIState.IDLE);
     }
 
-    @CallSuper
     void onNoData() {
         changeState(UIState.NO_DATA);
     }
 
-    @CallSuper
-    void onProgress() {
+    protected void onProgress() {
         changeState(UIState.PROGRESS);
     }
 
-    @CallSuper
     void onStopProgress() {
         changeState(UIState.STOP_PROGRESS);
     }
 
-    @CallSuper
     void onSuccess() {
         changeState(UIState.SUCCESS);
     }
 
-    @CallSuper
     void onError() {
         changeState(UIState.ERROR);
     }
