@@ -1,0 +1,2 @@
+# StateUI
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/297965a44a874582af4af24e74b3f46d)](https://www.codacy.com/app/snigavig/StateUI?utm_source=github.com&utm_medium=referral&utm_content=snigavig/StateUI&utm_campaign=badger)
