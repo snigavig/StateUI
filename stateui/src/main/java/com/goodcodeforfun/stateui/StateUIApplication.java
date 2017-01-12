@@ -44,15 +44,23 @@ public class StateUIApplication extends Application {
         initialised = false;
     }
 
-    public static void onError() throws NoActivityAttachedException {
+    public static void onError() {
         if(isInitialised()) {
-            getContext().onError();
+            try {
+                getContext().onError();
+            } catch (NoActivityAttachedException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+            }
         }
     }
 
-    public static void onSuccess() throws NoActivityAttachedException {
+    public static void onSuccess() {
         if (isInitialised()) {
-            getContext().onSuccess();
+            try {
+                getContext().onSuccess();
+            } catch (NoActivityAttachedException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+            }
         }
     }
 

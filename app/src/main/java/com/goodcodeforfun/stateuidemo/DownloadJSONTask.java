@@ -93,11 +93,7 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
             RecyclerView.Adapter adapter = new RecyclerViewAdapter(s);
             mRecyclerView.setAdapter(adapter);
         } else {
-            try {
-                StateUIApplication.onError();
-            } catch (StateUIApplication.NoActivityAttachedException e) {
-                e.printStackTrace();
-            }
+            StateUIApplication.onError();
         }
     }
 
