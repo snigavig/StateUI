@@ -20,8 +20,12 @@ public class StateUIApplication extends Application {
         return mInstance;
     }
 
-    public static StateUIActivity getContext() {
-        return getInstance().mActivityWeakReference.get();
+    public static StateUIActivity getContext() throws NoActivityAttachedException {
+        if (getInstance().mActivityWeakReference != null) {
+            return getInstance().mActivityWeakReference.get();
+        } else {
+            throw new NoActivityAttachedException(getInstance().getString(R.string.no_activity_exception_message));
+        }
     }
 
     public static void setContext(StateUIActivity activity) {
@@ -34,17 +38,19 @@ public class StateUIApplication extends Application {
     }
 
     public static void clearContext() {
-        getInstance().mActivityWeakReference.clear();
+        if (getInstance().mActivityWeakReference != null) {
+            getInstance().mActivityWeakReference.clear();
+        }
         initialised = false;
     }
 
-    public static void onError() {
+    public static void onError() throws NoActivityAttachedException {
         if(isInitialised()) {
             getContext().onError();
         }
     }
 
-    public static void onSuccess() {
+    public static void onSuccess() throws NoActivityAttachedException {
         if (isInitialised()) {
             getContext().onSuccess();
         }
@@ -59,5 +65,11 @@ public class StateUIApplication extends Application {
 
     private void init(Application application) {
         mInstance = (StateUIApplication) application;
+    }
+
+    public static class NoActivityAttachedException extends Exception {
+        NoActivityAttachedException(String message) {
+            super(message);
+        }
     }
 }

@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/snigavig/StateUI'
     gitUrl = 'https://github.com/snigavig/StateUI.git'
 
-    libraryVersion = '0.0.1-preview4'
+    libraryVersion = '0.0.1-preview5'
 
     developerId = 'snigavig'
     developerName = 'Dmitry Mina'
@@ -34,8 +34,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 4
-        versionName "0.0.1-preview4"
+        versionCode 5
+        versionName "0.0.1-preview5"
     }
     buildTypes {
         release {

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 public abstract class StateUIActivity extends StateUILifecycleActivity {
+    private static final String TAG = StateUIActivity.class.getSimpleName();
     private static final int TOAST_MESSAGE_HANDLER_KEY = 1;
     private static final String TOAST_MESSAGE_TEXT_KEY = "TOAST_MESSAGE_TEXT";
     private static final String TOAST_MESSAGE_DURATION_KEY = "TOAST_MESSAGE_DURATION";
@@ -16,13 +18,17 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
         public void handleMessage(Message message) {
             switch (message.what) {
                 case TOAST_MESSAGE_HANDLER_KEY:
-                    Toast.makeText(
-                            StateUIApplication.getContext(),
-                            message.getData().getString(TOAST_MESSAGE_TEXT_KEY),
-                            message.getData().getBoolean(TOAST_MESSAGE_DURATION_KEY)
-                                    ? Toast.LENGTH_LONG
-                                    : Toast.LENGTH_SHORT)
-                            .show();
+                    try {
+                        Toast.makeText(
+                                StateUIApplication.getContext(),
+                                message.getData().getString(TOAST_MESSAGE_TEXT_KEY),
+                                message.getData().getBoolean(TOAST_MESSAGE_DURATION_KEY)
+                                        ? Toast.LENGTH_LONG
+                                        : Toast.LENGTH_SHORT)
+                                .show();
+                    } catch (StateUIApplication.NoActivityAttachedException e) {
+                        Log.e(TAG, e.getLocalizedMessage());
+                    }
                     break;
                 default:
                     break;
@@ -143,7 +149,11 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
 
     //@CallSuper
     protected void onProgressUI() {
-        mProgressDialog = ProgressDialog.show(StateUIApplication.getContext(), "dialog title", "dialog message", true);
+        try {
+            mProgressDialog = ProgressDialog.show(StateUIApplication.getContext(), "dialog title", "dialog message", true);
+        } catch (StateUIApplication.NoActivityAttachedException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
     }
 
     //@CallSuper

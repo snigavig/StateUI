@@ -23,7 +23,7 @@ import java.util.ArrayList;
 class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
     static final String BASE_URL =
             "http://jsonplaceholder.typicode.com/photos/";
-    private static final String LOG_TAG = DownloadJSONTask.class.getSimpleName();
+    private static final String TAG = DownloadJSONTask.class.getSimpleName();
     private final RecyclerView mRecyclerView;
 
     DownloadJSONTask(RecyclerView recyclerView) {
@@ -62,29 +62,46 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
 
                     result = response.toString();
                 } else {
-                    Log.i(LOG_TAG, "request did not work.");
+                    Log.i(TAG, "request did not work.");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getLocalizedMessage());
             }
         }
-        return getDataFromJson(result);
+        try {
+            return getDataFromJson(result);
+        } catch (StateUIApplication.NoActivityAttachedException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+        return null;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        StateUIApplication.getContext().onProgress();
+        try {
+            StateUIApplication.getContext().onProgress();
+        } catch (StateUIApplication.NoActivityAttachedException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
     }
 
     @Override
     protected void onPostExecute(ArrayList<String> s) {
         super.onPostExecute(s);
-        RecyclerView.Adapter adapter = new RecyclerViewAdapter(s);
-        mRecyclerView.setAdapter(adapter);
+        if (s != null) {
+            RecyclerView.Adapter adapter = new RecyclerViewAdapter(s);
+            mRecyclerView.setAdapter(adapter);
+        } else {
+            try {
+                StateUIApplication.onError();
+            } catch (StateUIApplication.NoActivityAttachedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private ArrayList<String> getDataFromJson(String jsonStr) {
+    private ArrayList<String> getDataFromJson(String jsonStr) throws StateUIApplication.NoActivityAttachedException {
         final String TITLE = "title";
         ArrayList<String> titles = new ArrayList<>();
         try {
@@ -97,7 +114,7 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
             }
             StateUIApplication.onSuccess();
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
             e.printStackTrace();
             StateUIApplication.onError();
         }

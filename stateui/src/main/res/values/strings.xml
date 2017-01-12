@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StateUI</string>
+    <string name="no_activity_exception_message">No Activity attached yet</string>
 </resources>
