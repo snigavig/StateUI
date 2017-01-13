@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">StateUI</string>
     <string name="no_activity_exception_message">No Activity attached yet</string>
+    <string name="stateui_default_progress_dialog_title">Loading</string>
+    <string name="stateui_default_progress_dialog_message">Please wait…</string>
 </resources>

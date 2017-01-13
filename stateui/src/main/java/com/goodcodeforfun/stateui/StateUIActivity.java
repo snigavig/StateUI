@@ -150,7 +150,11 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
     //@CallSuper
     protected void onProgressUI() {
         try {
-            mProgressDialog = ProgressDialog.show(StateUIApplication.getContext(), "dialog title", "dialog message", true);
+            mProgressDialog = ProgressDialog
+                    .show(StateUIApplication.getContext(),
+                            getString(R.string.stateui_default_progress_dialog_title),
+                            getString(R.string.stateui_default_progress_dialog_message),
+                            true);
         } catch (StateUIApplication.NoActivityAttachedException e) {
             Log.e(TAG, e.getLocalizedMessage());
         }
