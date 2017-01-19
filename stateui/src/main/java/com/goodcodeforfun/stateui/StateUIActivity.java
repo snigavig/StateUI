@@ -38,11 +38,11 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
     };
     private ProgressDialog mProgressDialog = null;
 
-    protected static void showSimpleToast(String messageText) {
+    public static void showSimpleToast(String messageText) {
         showSimpleToast(messageText, true);
     }
 
-    private static void showSimpleToast(String messageText, boolean longDuration) {
+    public static void showSimpleToast(String messageText, boolean longDuration) {
         Bundle bundle = new Bundle();
         bundle.putString(TOAST_MESSAGE_TEXT_KEY, messageText);
         bundle.putBoolean(TOAST_MESSAGE_DURATION_KEY, longDuration);
