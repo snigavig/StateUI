@@ -1,6 +1,7 @@
 package com.goodcodeforfun.stateuidemo;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -39,7 +40,7 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
             e.printStackTrace();
         }
 
-        String result = "";
+        String result = null;
         for (String url : urls) {
             URL obj;
             HttpURLConnection con;
@@ -69,7 +70,9 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
             }
         }
         try {
-            return getDataFromJson(result);
+            if (result != null) {
+                return getDataFromJson(result);
+            }
         } catch (StateUIApplication.NoActivityAttachedException e) {
             Log.e(TAG, e.getLocalizedMessage());
         }
@@ -89,15 +92,15 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
     @Override
     protected void onPostExecute(ArrayList<String> s) {
         super.onPostExecute(s);
-        if (s != null) {
+        if (s != null && s.size() > 0) {
             RecyclerView.Adapter adapter = new RecyclerViewAdapter(s);
             mRecyclerView.setAdapter(adapter);
         } else {
-            StateUIApplication.onError();
+            StateUIApplication.onError(StateUIDemoApplication.getInstance().getString(R.string.no_results_error_message));
         }
     }
 
-    private ArrayList<String> getDataFromJson(String jsonStr) throws StateUIApplication.NoActivityAttachedException {
+    private ArrayList<String> getDataFromJson(@NonNull String jsonStr) throws StateUIApplication.NoActivityAttachedException {
         final String TITLE = "title";
         ArrayList<String> titles = new ArrayList<>();
         try {
@@ -112,7 +115,7 @@ class DownloadJSONTask extends AsyncTask<String, Void, ArrayList<String>> {
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
             e.printStackTrace();
-            StateUIApplication.onError();
+            StateUIApplication.onError(StateUIDemoApplication.getInstance().getString(R.string.parse_error_message));
         }
         return titles;
     }

@@ -131,11 +131,11 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
     }
 
     @Override
-    protected void onError() {
-        super.onError();
+    protected void onError(final String message) {
+        super.onError(message);
         runOnUiThread(new Runnable() {
             public void run() {
-                onErrorUI();
+                onErrorUI(message);
                 onStopProgress();
             }
         });
@@ -170,5 +170,5 @@ public abstract class StateUIActivity extends StateUILifecycleActivity {
 
     protected abstract void onSuccessUI();
 
-    protected abstract void onErrorUI();
+    protected abstract void onErrorUI(String message);
 }

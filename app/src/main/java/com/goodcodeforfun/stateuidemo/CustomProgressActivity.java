@@ -44,7 +44,7 @@ public class CustomProgressActivity extends StateUIActivity {
     }
 
     @Override
-    public void onErrorUI() {
+    public void onErrorUI(String message) {
         showSimpleToast("Error");
     }
 }

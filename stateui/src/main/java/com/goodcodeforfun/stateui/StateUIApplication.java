@@ -45,9 +45,13 @@ public class StateUIApplication extends Application {
     }
 
     public static void onError() {
+        onError(getInstance().getString(R.string.stateui_default_error_message));
+    }
+
+    public static void onError(String message) {
         if(isInitialised()) {
             try {
-                getContext().onError();
+                getContext().onError(message);
             } catch (NoActivityAttachedException e) {
                 Log.e(TAG, e.getLocalizedMessage());
             }

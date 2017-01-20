@@ -2,4 +2,6 @@
     <string name="app_name">StateUI demo</string>
     <string name="simple_example_button_label">Simple Example</string>
     <string name="custom_progress_example_button_label">Custom progress example</string>
+    <string name="parse_error_message">Parse error</string>
+    <string name="no_results_error_message">No results</string>
 </resources>

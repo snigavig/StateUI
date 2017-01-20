@@ -33,7 +33,7 @@ public class StateUILifecycleActivity extends AppCompatActivity {
         changeState(UIState.SUCCESS);
     }
 
-    void onError() {
+    void onError(String message) {
         changeState(UIState.ERROR);
     }
 

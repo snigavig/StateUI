@@ -30,7 +30,7 @@ public class SimpleActivity extends StateUIActivity {
     }
 
     @Override
-    public void onErrorUI() {
-        showSimpleToast("Error");
+    public void onErrorUI(String message) {
+        showSimpleToast(message);
     }
 }
